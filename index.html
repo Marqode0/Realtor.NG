@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealtorNG - Find Your Perfect Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">RNG</div>
+                    <div class="logo-text">
+                        <h1>RealtorNG</h1>
+                        <p>Direct Landlord Connection</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active">Home</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Find Your Perfect Home</h2>
+                <p>Direct from landlords, no agencies needed</p>
+                
+                <!-- SEARCH BOX -->
+                <div class="search-box">
+                    <div class="search-grid">
+                        <div class="search-field">
+                            <label for="state">State</label>
+                            <select id="state" name="state">
+                                <option value="">All States</option>
+                                <option value="Lagos">Lagos</option>
+                                <option value="FCT">FCT</option>
+                                <option value="Enugu">Enugu</option>
+                                <option value="Abuja">Abuja</option>
+                                <option value="Rivers">Rivers</option>
+                                <option value="Kano">Kano</option>
+                                <option value="Kaduna">Kaduna</option>
+                                <option value="Oyo">Oyo</option>
+                                <option value="Osun">Osun</option>
+                            </select>
+                        </div>
+
+                        <div class="search-field">
+                            <label for="area">Area</label>
+                            <select id="area" name="area">
+                                <option value="">All Areas</option>
+                            </select>
+                        </div>
+
+                        <div class="search-field">
+                            <label for="type">Property Type</label>
+                            <select id="type" name="type">
+                                <option value="">All Types</option>
+                                <option value="House">House</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="Townhouse">Townhouse</option>
+                                <option value="Studio">Studio</option>
+                            </select>
+                        </div>
+
+                        <div class="search-field">
+                            <label for="minPrice">Min Price (₦)</label>
+                            <input type="number" id="minPrice" name="minPrice" placeholder="Min">
+                        </div>
+
+                        <div class="search-field">
+                            <label for="maxPrice">Max Price (₦)</label>
+                            <input type="number" id="maxPrice" name="maxPrice" placeholder="Max">
+                        </div>
+                    </div>
+                    <button class="search-btn">🔍 Search Properties</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- RESULTS SECTION -->
+    <section class="results-section">
+        <div class="container">
+            <div class="results-header">
+                <div>
+                    <h3>Properties Found</h3>
+                    <p id="propertyCount">6 Properties Available</p>
+                </div>
+            </div>
+
+            <div id="propertiesContainer" class="properties-grid">
+                <!-- Properties will be inserted here by JavaScript -->
+            </div>
+
+            <div id="noResults" class="no-results" style="display: none;">
+                <div class="no-results-content">
+                    <p>🏠</p>
+                    <h3>No Properties Match Your Criteria</h3>
+                    <p>Try adjusting your filters</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="detailsSection" class="details-section" style="display: none;">
+        <div class="details-container">
+            <!-- Back Button -->
+            <button class="back-btn" onclick="closeDetails()">← Back to Results</button>
+
+            <!-- Details Content -->
+            <div class="details-content">
+                <!-- Hero Image -->
+                <div id="detailsImage" class="details-image"></div>
+
+                <!-- Main Info -->
+                <div class="details-main">
+                    <div class="details-header">
+                        <div>
+                            <h1 id="detailsTitle">Property Title</h1>
+                            <div class="details-location">
+                                <span id="detailsArea">Area</span>, <span id="detailsState">State</span>
+                            </div>
+                        </div>
+                        <button class="details-favorite-btn" onclick="toggleDetailsFavorite()">🤍</button>
+                    </div>
+
+                    <!-- Price Box -->
+                    <div class="price-box">
+                        <p class="price-label">Price</p>
+                        <p class="price-value" id="detailsPrice">₦0M</p>
+                    </div>
+
+                    <!-- Property Specs Grid -->
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <p class="spec-label">Bedrooms</p>
+                            <p class="spec-value" id="detailsBeds">0</p>
+                        </div>
+                        <div class="spec-item">
+                            <p class="spec-label">Bathrooms</p>
+                            <p class="spec-value" id="detailsBaths">0</p>
+                        </div>
+                        <div class="spec-item">
+                            <p class="spec-label">Square Feet</p>
+                            <p class="spec-value" id="detailsSqft">0</p>
+                        </div>
+                        <div class="spec-item">
+                            <p class="spec-label">Property Type</p>
+                            <p class="spec-value" id="detailsType">Type</p>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="description-section">
+                        <h2>About This Property</h2>
+                        <p id="detailsDescription">Property description goes here</p>
+                    </div>
+
+                    <!-- Landlord Info -->
+                    <div class="landlord-section">
+                        <h2>Contact Landlord</h2>
+                        <div class="landlord-card">
+                            <div class="landlord-info">
+                                <p class="landlord-label">Landlord Name</p>
+                                <p class="landlord-name" id="detailsLandlord">Name</p>
+                            </div>
+                            <div class="landlord-contact">
+                                <button class="call-btn" onclick="callLandlord()">
+                                    📱 Call: <span id="detailsPhone">0800000000</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-section">
+                        <h2>Send a Message</h2>
+                        <form id="contactForm" onsubmit="submitContactForm(event)">
+                            <div class="form-row">
+                                <input type="text" id="contactName" placeholder="Your Full Name" required>
+                                <input type="email" id="contactEmail" placeholder="Your Email" required>
+                            </div>
+
+                            <input type="tel" id="contactPhone" placeholder="Your Phone Number (11 digits)" required>
+
+                            <textarea id="contactMessage" placeholder="Tell the landlord about yourself..." rows="5" required></textarea>
+
+                            <button type="submit" class="submit-btn">💬 Send Message to <span id="formLandlord">Landlord</span></button>
+                        </form>
+                    </div>
+
+                    <!-- Safety Tips -->
+                    <div class="safety-tips">
+                        <p><strong>⚠️ Safe Transactions:</strong> Always verify property details and landlord information. Meet in person and verify ownership before making any payments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Footer Column 1: Brand -->
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">RNG</div>
+                        <div>
+                            <h3>RealtorNG</h3>
+                            <p>Direct Landlord Connection</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Find your perfect home in Nigeria without the need for expensive agencies. 
+                        Connect directly with landlords and secure your dream property today.
+                    </p>
+                </div>
+
+                <!-- Footer Column 2: Quick Links -->
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="scrollToTop()">Home</a></li>
+                        <li><a href="#" onclick="scrollToTop()">Browse Properties</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Column 3: Locations -->
+                <div class="footer-column">
+                    <h4>Featured Locations</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Lagos</a></li>
+                        <li><a href="#">FCT / Abuja</a></li>
+                        <li><a href="#">Enugu</a></li>
+                        <li><a href="#">Rivers</a></li>
+                        <li><a href="#">Kano</a></li>
+                    </ul>
+                </div>
+
+                <!-- Footer Column 4: Contact & Social -->
+                <div class="footer-column">
+                    <h4>Get In Touch</h4>
+                    <div class="footer-contact">
+                        <p class="contact-item">
+                            📧 <a href="mailto:info@realtor-ng.com">info@realtor-ng.com</a>
+                        </p>
+                        <p class="contact-item">
+                            📱 <a href="tel:+2348012345678">+234 801 234 5678</a>
+                        </p>
+                        <p class="contact-item">
+                            📍 Lagos, Nigeria
+                        </p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">f</a>
+                        <a href="#" class="social-link" title="Twitter">𝕏</a>
+                        <a href="#" class="social-link" title="Instagram">📷</a>
+                        <a href="#" class="social-link" title="LinkedIn">in</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="footer-divider"></div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2025 RealtorNG. All rights reserved. | 
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms of Service</a> | 
+                    <a href="#">Cookie Policy</a>
+                </p>
+                <p class="footer-tagline">
+                    Built with ❤️ for Nigeria | Direct Connection, Zero Middlemen
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
